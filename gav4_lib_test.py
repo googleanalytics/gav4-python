@@ -16,8 +16,8 @@
 
 from google.apputils import basetest as googletest
 
-from gav4 import gav4_lib
-from gav4.data import testing
+import gav4_lib
+from data import testing
 
 
 __author__ = 'mcohoon@google.com (Matthew Cohoon)'
