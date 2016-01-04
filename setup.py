@@ -2,20 +2,20 @@
 
 import os
 
-
-from setuptools import setup
 from setuptools import find_packages
+from setuptools import setup
+
 
 here = os.path.abspath(os.path.dirname(__file__))
 
 
 with open(os.path.join(here, 'README.md')) as f:
-    README = f.read()
+  README = f.read()
 
 
 REQUIREMENTS = [
-  'google-api-python-client >= 1.4.0',
-  'google-apputils >= 0.4.0',
+    'google-api-python-client >= 1.2.0',
+    'google-apputils >= 0.4.0',
 ]
 
 
@@ -31,6 +31,8 @@ setup(
     packages=find_packages(),
     license='Apache 2.0',
     platforms='Posix; MacOS X; Windows',
+    test_suite='nose.collector',
+    tests_require=['nose', 'nose-cover3'],
     include_package_data=True,
     zip_safe=False,
     install_requires=REQUIREMENTS,
