@@ -9,30 +9,34 @@ Library for converting V3 API request to v4 API requests.
 
 ## Typical usage example
 
-There are two methods of using the gav4 libary. The first being you can
-`apply` the library to an authorized Google Analytics Service object, which
-exposes a get method that operates much like the current v3 Core Reporting
-API. Alternatively you can call the conversion methods directly.
+There are two methods of using the gav4 library. You can `apply` the library to an authorized Google Analytics Service object, which exposes a get method that operates much like the current Core Reporting API V3.
 
 
-    from gcloud import datastore
     import gav4
+
     gav4.apply_gav4(analytics)
 
+    # Call the gav4_get method with a V3 request and get a V3 response.
     v3_response = analytics.gav4_get(v3_request).execute()
 
-    # Alternatively you can convert the request directly
+
+Alternatively you can convert the requests and responses directly.
+
+
+    # Convert a V3 request into a V4 request.
     v4_request = gav4.convert_request(v3_request)
 
+    # Call the V4 API.
     v4_response = analytics.reports().batchGet(body=v4_request).execute()
 
+    # Convert the V4 API response into a V3 response.
     v3_response = gav4.convert_report(v4_response.get('reports', [])[0])
 
 
 ## Contributing
 
 1. **Please sign one of the contributor license agreements below.**
-2. Fork the repo, develop and test your code changes, add docs.
+2. Fork the repository, develop and test your code changes, add docs.
 3. Make sure that your commit messages clearly describe the changes.
 4. Send a pull request.
 
