@@ -1,8 +1,8 @@
-# Google Analytics V4 Compatibility Library
+# Google Analytics Reporting V4 Compatibility Library
 
-Library for converting V3 API request to v4 API requests.
+A library for converting Google Analytics Core Reporting API V3 request to Analytics Reporting API V4 requests.
 
-## Quick Start
+## Installation
 
     $ pip install --upgrade gav4
 
@@ -11,17 +11,15 @@ Library for converting V3 API request to v4 API requests.
 
 There are two methods of using the gav4 library. You can `apply` the library to an authorized Google Analytics Service object, which exposes a get method that operates much like the current Core Reporting API V3.
 
-
     import gav4
 
+    # Apply the gav4 get method to the authorized service object.
     gav4.apply_gav4(analytics)
 
     # Call the gav4_get method with a V3 request and get a V3 response.
     v3_response = analytics.gav4_get(v3_request).execute()
 
-
 Alternatively you can convert the requests and responses directly.
-
 
     # Convert a V3 request into a V4 request.
     v4_request = gav4.convert_request(v3_request)
@@ -32,6 +30,13 @@ Alternatively you can convert the requests and responses directly.
     # Convert the V4 API response into a V3 response.
     v3_response = gav4.convert_report(v4_response.get('reports', [])[0])
 
+## Testing
+
+Run the tests with the following command:
+
+    python setup.py tests
+
+This may require you to install the nose library -- `pip install nose`.
 
 ## Contributing
 

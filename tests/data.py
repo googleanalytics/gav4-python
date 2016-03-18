@@ -335,7 +335,8 @@ V4_REQUEST = {
             ],
             "order_bys": [
                 {
-                    "fieldName": "ga:sessions desc",
+                    "fieldName": "ga:sessions",
+                    "sortOrder": "DESCENDING",
                     "orderType": "VALUE"
                 },
                 {
@@ -347,7 +348,7 @@ V4_REQUEST = {
             "samplingLevel": "SMALL",
             "segments": [
                 {
-                    "segmentExpression": "sessions::condition::ga:city!~not"
+                    "segmentId": "sessions::condition::ga:city!~not"
                 }
             ],
             "viewId": "ga:90851825"
@@ -445,11 +446,13 @@ ORDER_BYS = [
         "orderType": "VALUE"
     },
     {
-        "fieldName": "ga:browser desc",
+        "fieldName": "ga:browser",
+        "sortOrder": "DESCENDING",
         "orderType": "VALUE"
     },
     {
-        "fieldName": "ga:sessions desc",
+        "fieldName": "ga:sessions",
+        "sortOrder": "DESCENDING",
         "orderType": "VALUE"
     }
 ]

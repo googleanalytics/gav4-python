@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""Tests for the gav4 library."""
 
 from google.apputils import basetest as googletest
 
@@ -49,17 +50,17 @@ class Gav4LibTest(googletest.TestCase):
     """Test the conversion of segments."""
     segments = 'users::condition::ga:city==London;ga:browser==Chrome'
     response = gav4.convert_segments(segments)
-    reference = [{'segmentExpression': segments}]
+    reference = [{'segmentId': segments}]
     self.assertEquals(response, reference)
 
   def testConvertOrderings(self):
-    """Test the conversion of v3 sorts into v4 orderBys."""
+    """Test the conversion of V3 sorts into V4 orderBys."""
     sort = 'ga:country,-ga:browser,-ga:sessions'
     order_bys = gav4.convert_sorting(sort)
     self.assertItemsEqual(order_bys, data.ORDER_BYS)
 
   def testConvertRequest(self):
-    """Tests the conversion of a v3 request."""
+    """Tests the conversion of a V3 request."""
     response = gav4.convert_request(**data.V3_REQUEST)
     self.assertDictContainsSubset(response, data.V4_REQUEST)
 
@@ -67,8 +68,8 @@ class Gav4LibTest(googletest.TestCase):
     """An end to end integration test of the gav4 library.
 
     This represents what the end user would do with the gav4 library.
-    Given an authenticated service object we apply the gav4, and then
-    make a call as if we were still using the v3 library.
+    Given an authenticated service object, we apply gav4, and then
+    make a call as if we were still using the V3 library.
     """
 
     # Get the MOCK authenticated service object.

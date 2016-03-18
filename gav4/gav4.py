@@ -13,26 +13,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Library for converting V3 API request to v4 API requests.
+"""Library for converting V3 API request to V4 API requests.
 
-This library contains helper functions to convert a
-Google Analytics Core Reporting API request
-from a V3 API request into a v4 API Request. It is designed to work in
-concert to the Google API Python client library.
+This library contains helper functions to convert a Core Reporting API V3
+request into a Analytics Reporting API V4 request.
+It is designed to work in concert to the Google API Python client library.
 
-  Typical usage example:
+    import gav4
 
-  import gav4
-  gav4.apply_gav4(analytics)
+    # Apply the gav4 get method to the authorized service object.
+    gav4.apply_gav4(analytics)
 
-  v3_response = analytics.gav4_get(v3_request).execute()
+    # Call the gav4_get method with a V3 request and get a V3 response.
+    v3_response = analytics.gav4_get(v3_request).execute()
 
-  # Alternatively you can convert the request directly
-  v4_request = gav4.convert_request(v3_request)
+Alternatively you can convert the requests and responses directly.
 
-  v4_response = analytics.reports().batchGet(body=v4_request).execute()
+    # Convert a V3 request into a V4 request.
+    v4_request = gav4.convert_request(v3_request)
 
-  v3_response = gav4.convert_report(v4_response.get('reports', [])[0])
+    # Call the V4 API.
+    v4_response = analytics.reports().batchGet(body=v4_request).execute()
+
+    # Convert the V4 API response into a V3 response.
+    v3_response = gav4.convert_report(v4_response.get('reports', [])[0])
 
 """
 
@@ -51,12 +55,12 @@ SAMPLING_MAP = {
 
 
 def convert_dimensions(dimensions):
-  """Converts v3 dimension parameters into v4 parameters."""
+  """Converts a V3 dimensions parameter into V4 Dimension objects."""
   return [{'name': name} for name in dimensions.split(',')]
 
 
 def convert_metrics(metrics):
-  """Converts v3 metric parameters into v4 parameters."""
+  """Converts a V3 metrics parameter into V4 Metric objects."""
   converted_metrics = []
   for expression in metrics.split(','):
     metric = {
@@ -67,17 +71,17 @@ def convert_metrics(metrics):
 
 
 def convert_segments(segment):
-  """Converts the V3 segment string syntax into the v4 syntax."""
-  return [{'segmentExpression': segment}]
+  """Converts a V3 segment parameter into an list with a V4 Segment object."""
+  return [{'segmentId': segment}]
 
 
 def convert_sorting(sortings):
-  """Convert the V3 orderings into v4 Syntax.
+  """Convert a V3 sort parameter into  the V4 orderBys field.
 
   Args:
-    sortings: A string v3 representation of sorting.
+    sortings: A string representing the V3 sort parameter.
   Returns:
-    A list of v4 orderBy objects.
+    A list of V4 orderBy objects.
   """
   order_bys = []
 
@@ -85,7 +89,8 @@ def convert_sorting(sortings):
     order_by = {}
     order_by['orderType'] = 'VALUE'
     if sorting.startswith('-'):
-      order_by['fieldName'] = sorting[1:] + ' desc'
+      order_by['fieldName'] = sorting[1:]
+      order_by['sortOrder'] = 'DESCENDING'
     else:
       order_by['fieldName'] = sorting
     order_bys.append(order_by)
@@ -93,17 +98,17 @@ def convert_sorting(sortings):
 
 
 def convert_sampling(sampling):
-  """Converts the v3 sampling string into v4 syntax."""
+  """Converts the V4 sampling parameter into V4 syntax."""
   return SAMPLING_MAP.get(sampling, 'SAMPLING_UNSPECIFIED')
 
 
 def convert_dateranges(kwargs):
-  """Creates the date range object from the parameters dictionary.
+  """Creates the DateRange object from the parameters dictionary.
 
   Args:
     kwargs: a dict containing the parameters passed in the request.
   Returns:
-    A DateRange object, a dictionary.
+    A list containing a DateRange object.
   """
   date_range = {
       'startDate': kwargs.get('start_date', None),
@@ -113,7 +118,11 @@ def convert_dateranges(kwargs):
 
 
 def gav4_execute(self):
-  """A method hijack the execute to get the response."""
+  """A method to hijack the execute method to convert the response.
+
+  This method calls the V4 execute method captures the returned reports
+  and then converts the initial Report object into V3 response.
+  """
 
   # Call the old execute.
   reports = self.old_execute()
@@ -123,7 +132,7 @@ def gav4_execute(self):
 
 
 def convert_request(**kwargs):
-  """Converts the v3 request to a v4 request."""
+  """Converts the V3 request to a V4 request."""
   report_request = {}
 
   # Convert the required arguments
@@ -162,7 +171,16 @@ def convert_request(**kwargs):
 
 
 def gav4_get(self, **kwargs):
-  """A service object method this method converts and calls the requests."""
+  """A service object method this method converts and calls the requests.
+
+  This method gets attached to an authorized analytics V4 service object.
+  It operates like a V3 data().ga().get() method.
+
+  Args:
+    kwargs: The keyword arguments to a V3 request.
+  Returns:
+    A V4 BatchGet object.
+  """
   batch_get = self.reports().batchGet(body=convert_request(**kwargs))
 
   # Rename the existing batch get so we hijack the response.
@@ -172,12 +190,10 @@ def gav4_get(self, **kwargs):
 
 
 def apply_gav4(analytics):
-  """Applies the gav4 coating to the authorized service object.
+  """Adds the gav4_get method to the authorized service object.
 
   Args:
-    analytics: an authorized service object.
-  Returns:
-    An authorized service object with a lovely gav4 applied.
+    analytics: a V4 authorized service object.
   """
   analytics.gav4_get = partial(gav4_get, analytics)
 
@@ -260,7 +276,7 @@ def convert_totals(report):
 
 
 def convert_report(report):
-  """Converts the v4 report response into a v3 report response."""
+  """Converts the V4 report response into a V3 report response."""
   data = {}
   data['kind'] = 'analytics#gaData'
   data['columnHeaders'] = convert_column_headers(report)
