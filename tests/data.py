@@ -494,8 +494,8 @@ class Reports(object):
     return BatchGet(body)
 
 
-class Analytics(object):
-  """Mock Google Analytics service object."""
+class AnalyticsReporting(object):
+  """Mock AnalyticsReporting service object."""
 
   def reports(self):
     """Returns a mock Reports object."""

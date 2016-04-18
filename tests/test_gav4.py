@@ -73,13 +73,13 @@ class Gav4LibTest(googletest.TestCase):
     """
 
     # Get the MOCK authenticated service object.
-    analytics = data.Analytics()
+    analyticsreporting = data.AnalyticsReporting()
 
     # Apply the gav4 library.
-    gav4.apply_gav4(analytics)
+    gav4.apply_gav4(analyticsreporting)
 
-    # Call the veeneer_get() method.
-    request = analytics.gav4_get(**data.V3_REQUEST)
+    # Call the gav4_get() method.
+    request = analyticsreporting.gav4_get(**data.V3_REQUEST)
 
     # Call the wrapped execute method.
     response = request.execute()

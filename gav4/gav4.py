@@ -15,25 +15,25 @@
 
 """Library for converting V3 API request to V4 API requests.
 
-This library contains helper functions to convert a Core Reporting API V3
+This library contains helper functions which convert a Core Reporting API V3
 request into a Analytics Reporting API V4 request.
 It is designed to work in concert to the Google API Python client library.
 
     import gav4
 
-    # Apply the gav4 get method to the authorized service object.
-    gav4.apply_gav4(analytics)
+    # Apply the gav4 get method to the analyticsreporting service object.
+    gav4.apply_gav4(analyticsreporting)
 
     # Call the gav4_get method with a V3 request and get a V3 response.
     v3_response = analytics.gav4_get(v3_request).execute()
 
-Alternatively you can convert the requests and responses directly.
+Alternatively, you can convert the requests and responses directly.
 
     # Convert a V3 request into a V4 request.
     v4_request = gav4.convert_request(v3_request)
 
     # Call the V4 API.
-    v4_response = analytics.reports().batchGet(body=v4_request).execute()
+    v4_response = analyticsreporting.reports().batchGet(body=v4_request).execute()
 
     # Convert the V4 API response into a V3 response.
     v3_response = gav4.convert_report(v4_response.get('reports', [])[0])
@@ -171,7 +171,7 @@ def convert_request(**kwargs):
 
 
 def gav4_get(self, **kwargs):
-  """A service object method this method converts and calls the requests.
+  """A service object method which converts and calls the requests.
 
   This method gets attached to an authorized analytics V4 service object.
   It operates like a V3 data().ga().get() method.

@@ -1,6 +1,6 @@
-# Google Analytics Reporting V4 Compatibility Library
+# Google Analytics Reporting API V4 Compatibility Library [![Analytics](https://ga-beacon.appspot.com/UA-76561751-1/googleanalytics/gav4-python?pixel)](https://github.com/googleanalytics/gav4-python)
 
-A library for converting Google Analytics Core Reporting API V3 request to Analytics Reporting API V4 requests.
+A library for converting Google Analytics [Core Reporting API V3](https://developers.google.com/analytics/devguides/reporting/core/v3/) request to [Analytics Reporting API V4](https://developers.google.com/analytics/devguides/reporting/core/v4/) requests.
 
 ## Installation
 
@@ -9,23 +9,23 @@ A library for converting Google Analytics Core Reporting API V3 request to Analy
 
 ## Typical usage example
 
-There are two methods of using the gav4 library. You can `apply` the library to an authorized Google Analytics Service object, which exposes a get method that operates much like the current Core Reporting API V3.
+There are two methods of using the gav4 library. You can `apply` the library to an authorized `analyticsreporting` Service object, which exposes a get method that operates much like the current Core Reporting API V3.
 
     import gav4
 
-    # Apply the gav4 get method to the authorized service object.
-    gav4.apply_gav4(analytics)
+    # Apply the gav4 get method to the analyticsreporting service object.
+    gav4.apply_gav4(analyticsreporting)
 
     # Call the gav4_get method with a V3 request and get a V3 response.
     v3_response = analytics.gav4_get(v3_request).execute()
 
-Alternatively you can convert the requests and responses directly.
+Alternatively, you can convert the requests and responses directly.
 
     # Convert a V3 request into a V4 request.
     v4_request = gav4.convert_request(v3_request)
 
     # Call the V4 API.
-    v4_response = analytics.reports().batchGet(body=v4_request).execute()
+    v4_response = analyticsreporting.reports().batchGet(body=v4_request).execute()
 
     # Convert the V4 API response into a V3 response.
     v3_response = gav4.convert_report(v4_response.get('reports', [])[0])
@@ -61,3 +61,6 @@ You can sign these electronically (just scroll to the bottom). After that, we'll
 All submissions, including submissions by project members, require review. We
 use Github pull requests for this purpose.
 
+### Naming
+
+This library is strictly for the Analytics Reporting API and not to be confused with the [Google Analytics Android SDK V4](https://developers.google.com/analytics/devguides/collection/android/v4/).

@@ -38,7 +38,6 @@ setup(
     description='Google Analytics V4 API Compatibility Library',
     author='Google Analytics Platform',
     author_email='mcohoon+gav4-python@google.com',
-    long_description=README,
     scripts=[],
     url='https://github.com/googleanalytics/gav4-python',
     packages=find_packages(),
