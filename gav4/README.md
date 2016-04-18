@@ -1,4 +1,4 @@
-# Google Analytics Reporting API V4 Compatibility Library [![Analytics](https://ga-beacon.appspot.com/UA-76561751-1/googleanalytics/gav4-python/gav4?pixel)](https://github.com/googleanalytics/gav4-python)
+# GAV4 [![Analytics](https://ga-beacon.appspot.com/UA-76561751-1/googleanalytics/gav4-python/gav4?pixel)](https://github.com/googleanalytics/gav4-python)
 
 ## Contents
 

@@ -25,7 +25,7 @@ It is designed to work in concert to the Google API Python client library.
     gav4.apply_gav4(analyticsreporting)
 
     # Call the gav4_get method with a V3 request and get a V3 response.
-    v3_response = analytics.gav4_get(v3_request).execute()
+    v3_response = analyticsreporting.gav4_get(v3_request).execute()
 
 Alternatively, you can convert the requests and responses directly.
 

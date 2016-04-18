@@ -34,7 +34,7 @@ REQUIREMENTS = [
 
 setup(
     name='gav4',
-    version='0.1.0',
+    version='0.1.1',
     description='Google Analytics V4 API Compatibility Library',
     author='Google Analytics Platform',
     author_email='mcohoon+gav4-python@google.com',

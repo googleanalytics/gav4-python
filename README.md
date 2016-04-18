@@ -1,6 +1,6 @@
-# Google Analytics Reporting API V4 Compatibility Library [![Analytics](https://ga-beacon.appspot.com/UA-76561751-1/googleanalytics/gav4-python?pixel)](https://github.com/googleanalytics/gav4-python)
+# GAV4 - Analytics Reporting API V4 Compatibility Library [![Analytics](https://ga-beacon.appspot.com/UA-76561751-1/googleanalytics/gav4-python?pixel)](https://github.com/googleanalytics/gav4-python)
 
-A library for converting Google Analytics [Core Reporting API V3](https://developers.google.com/analytics/devguides/reporting/core/v3/) request to [Analytics Reporting API V4](https://developers.google.com/analytics/devguides/reporting/core/v4/) requests.
+A library for converting Google Analytics [Core Reporting API V3](https://developers.google.com/analytics/devguides/reporting/core/v3/) requests to [Analytics Reporting API V4](https://developers.google.com/analytics/devguides/reporting/core/v4/) requests.
 
 ## Installation
 
@@ -17,7 +17,7 @@ There are two methods of using the gav4 library. You can `apply` the library to 
     gav4.apply_gav4(analyticsreporting)
 
     # Call the gav4_get method with a V3 request and get a V3 response.
-    v3_response = analytics.gav4_get(v3_request).execute()
+    v3_response = analyticsreporting.gav4_get(v3_request).execute()
 
 Alternatively, you can convert the requests and responses directly.
 
