@@ -22,10 +22,6 @@ from setuptools import setup
 here = os.path.abspath(os.path.dirname(__file__))
 
 
-with open(os.path.join(here, 'README.md')) as f:
-  README = f.read()
-
-
 REQUIREMENTS = [
     'google-api-python-client >= 1.2.0',
     'google-apputils >= 0.4.0',
@@ -34,7 +30,7 @@ REQUIREMENTS = [
 
 setup(
     name='gav4',
-    version='0.1.1',
+    version='0.1.2',
     description='Google Analytics V4 API Compatibility Library',
     author='Google Analytics Platform',
     author_email='mcohoon+gav4-python@google.com',
