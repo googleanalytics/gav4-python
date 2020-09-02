@@ -1,3 +1,5 @@
+# No longer actively maintained
+
 # GAV4 - Analytics Reporting API V4 Compatibility Library [![Analytics](https://ga-beacon.appspot.com/UA-76561751-1/googleanalytics/gav4-python?pixel)](https://github.com/googleanalytics/gav4-python)
 
 A library for converting Google Analytics [Core Reporting API V3](https://developers.google.com/analytics/devguides/reporting/core/v3/) requests to [Analytics Reporting API V4](https://developers.google.com/analytics/devguides/reporting/core/v4/) requests.
